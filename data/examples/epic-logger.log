@@ -1,0 +1,177 @@
+
+transports: [object Object]   
+
+hash: function (str) {
+  return crypto.createHash('sha1').update(str).digest('hex');
+}   
+
+clone: function (obj) {
+  if (obj instanceof Error) {
+    // With potential custom Error objects, this might not be exactly correct,
+    // but probably close-enough for purposes of this lib.
+    var copy = { message: obj.message };
+    Object.getOwnPropertyNames(obj).forEach(function (key) {
+      copy[key] = obj[key];
+    });
+
+    return cycle.decycle(copy);
+  }
+  else if (!(obj instanceof Object)) {
+    return obj;
+  }
+  else if (obj instanceof Date) {
+    return new Date(obj.getTime());
+  }
+
+  return clone(cycle.decycle(obj));
+}   
+longestElement: function (xs) {
+  return Math.max.apply(
+    null,
+    xs.map(function (x) { return x.length; })
+  );
+}   
+exception: [object Object]   
+config: [object Object]   
+addColors: function (colors) {
+  mixin(allColors, colors);
+}   
+Container: function (options) {
+  this.loggers = {};
+  this.options = options || {};
+  this.default = {
+    transports: [
+      new winston.transports.Console({
+        level: 'silly',
+        colorize: false
+      })
+    ]
+  }
+}   
+Logger: function (options) {
+  events.EventEmitter.call(this);
+  this.configure(options);
+}   
+Transport: function (options) {
+  events.EventEmitter.call(this);
+
+  options        = options        || {};
+  this.silent    = options.silent || false;
+  this.raw       = options.raw    || false;
+  this.name      = options.name   || this.name;
+  this.formatter = options.formatter;
+
+  //
+  // Do not set a default level. When `level` is falsey on any
+  // `Transport` instance, any `Logger` instance uses the
+  // configured level (instead of the Transport level)
+  //
+  this.level = options.level;
+
+  this.handleExceptions = options.handleExceptions || false;
+  this.exceptionsLevel  = options.exceptionsLevel || 'error';
+  this.humanReadableUnhandledException = options.humanReadableUnhandledException || false;
+}   
+loggers: [object Object]   
+padLevels: false   
+levels: [object Object]   
+log: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+query: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+stream: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+add: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+remove: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+clear: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+profile: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+startTimer: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+extend: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+cli: function () {
+  winston.padLevels = true;
+  common.setLevels(winston, defaultLogger.levels, winston.config.cli.levels);
+  defaultLogger.setLevels(winston.config.cli.levels);
+  winston.config.addColors(winston.config.cli.colors);
+
+  if (defaultLogger.transports.console) {
+    defaultLogger.transports.console.colorize = true;
+    defaultLogger.transports.console.timestamp = false;
+  }
+
+  return winston;
+}   
+handleExceptions: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+unhandleExceptions: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+configure: function () {
+    return defaultLogger[method].apply(defaultLogger, arguments);
+  }   
+setLevels: function (target) {
+  common.setLevels(winston, defaultLogger.levels, target);
+  defaultLogger.setLevels(target);
+}   
+emerg: function (msg) {
+      // build argument list (level, msg, ... [string interpolate], [{metadata}], [callback])
+      var args = [level].concat(Array.prototype.slice.call(arguments));
+      target.log.apply(target, args);
+    }   
+alert: function (msg) {
+      // build argument list (level, msg, ... [string interpolate], [{metadata}], [callback])
+      var args = [level].concat(Array.prototype.slice.call(arguments));
+      target.log.apply(target, args);
+    }   
+crit: function () {
+    let args = Array.prototype.slice.call(arguments);
+    if (args && args[0] && args[0] instanceof VError) {
+      args = [VError.fullStack(args[0])].concat(args.slice(1));
+    }
+    method.apply(this, args);
+  }   
+error: function () {
+    let args = Array.prototype.slice.call(arguments);
+    if (args && args[0] && args[0] instanceof VError) {
+      args = [VError.fullStack(args[0])].concat(args.slice(1));
+    }
+    method.apply(this, args);
+  }   
+warning: function (msg) {
+      // build argument list (level, msg, ... [string interpolate], [{metadata}], [callback])
+      var args = [level].concat(Array.prototype.slice.call(arguments));
+      target.log.apply(target, args);
+    }   
+notice: function (msg) {
+      // build argument list (level, msg, ... [string interpolate], [{metadata}], [callback])
+      var args = [level].concat(Array.prototype.slice.call(arguments));
+      target.log.apply(target, args);
+    }   
+info: function (msg) {
+      // build argument list (level, msg, ... [string interpolate], [{metadata}], [callback])
+      var args = [level].concat(Array.prototype.slice.call(arguments));
+      target.log.apply(target, args);
+    }   
+debug: function (msg) {
+      // build argument list (level, msg, ... [string interpolate], [{metadata}], [callback])
+      var args = [level].concat(Array.prototype.slice.call(arguments));
+      target.log.apply(target, args);
+    }   
+
+[nodemon] clean exit - waiting for changes before restart
+^A 
